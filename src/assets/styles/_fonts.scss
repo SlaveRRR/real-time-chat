@@ -1,0 +1,26 @@
+@use "variables" as *;
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap');
+
+
+:root{
+    font-family: "Work sans";
+    font-weight: 500;
+    font-size: 0.875rem;
+
+    @media (min-width:$device-XS) {
+        font-size: .9rem;
+    }
+
+    @media (min-width:$device-M) {
+        font-size: 1rem;
+    }
+
+    @media (min-width:$device-XL) {
+        font-size: 1.1rem;
+    }
+    @media (min-width:$device-XXL) {
+        font-size: 1.3rem;
+    }
+    
+}
+

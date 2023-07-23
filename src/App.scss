@@ -1,0 +1,21 @@
+@use "./assets/styles/mixins" as *;
+
+.form-section {
+  margin-bottom: 1em;
+}
+.comments-section{
+  margin-bottom: 1.5em;
+}
+.header {
+  padding-top: 1.2em;
+  width: max-content;
+  font-weight: bold;
+  margin: 0 auto 1.5em;
+
+}
+
+.container {
+  @include flex($dir: column, $gap: 1.1em)
+}
+
+

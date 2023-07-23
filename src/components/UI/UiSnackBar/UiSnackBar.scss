@@ -1,0 +1,47 @@
+@use "../../../assets/styles/mixins" as *;
+@use "../../../assets/styles/variables" as *;
+
+.snackbar-container {
+    position: fixed;
+    top: calc(1vw + 0.1em);
+    right: calc(1vw + 0.1em);
+    padding: 1em 1.5em;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    @include flex;
+    transition: opacity .4s ease-in-out, transform .5s linear;
+
+    &--positive {
+        color: #001F3F;
+        background-color: $color-positive;
+    }
+
+    &--negative {
+        color: #FFFFFF;
+        background-color: $color-negative;
+    }
+
+    &.entering,&.entered{
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    &.exiting,&.exited{
+        transform: translateY(-120%);
+        opacity: 0;
+    }
+
+  
+
+
+    // .fade-enter-active,
+    // .fade-leave-active {
+    //     transition: opacity .4s ease-in-out, transform .5s linear;
+    // }
+
+    // .fade-enter-from,
+    // .fade-leave-to {
+    //     transform: translateY(-120%);
+    //     opacity: 0;
+    // }
+}

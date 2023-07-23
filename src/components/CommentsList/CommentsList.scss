@@ -1,0 +1,36 @@
+@use "../../assets/styles/mixins" as *;
+@use "../../assets/styles/variables" as *;
+
+.realMessage {
+    &__text {
+        font-size: 1.15rem;
+    }
+
+    @include flex($gap: .54em);
+}
+
+.comments {
+    @include flex($dir: column, $gap: 1em);
+
+   
+    &--children {
+        margin-left: $margin-M;
+        align-self: end;
+
+        @media (min-width:$device-XS) {
+            margin-left:0;
+          
+            
+        }
+    }
+
+    &--flat {
+        margin-left: $margin-S;
+        align-self: end;
+
+        @media (min-width:$device-XS) {
+            margin-left:0;
+            
+        }
+    }
+}

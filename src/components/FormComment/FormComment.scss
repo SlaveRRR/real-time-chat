@@ -1,0 +1,87 @@
+@use "../../assets/styles/mixins" as *;
+@use "../../assets/styles/variables" as *;
+
+.form {
+    border: 1px solid black;
+    padding: 1em 1.5em;
+    border-radius: 10px;
+
+    &__data {
+        @include flex($dir: column, $gap: .8em);
+        margin-bottom: 1em;
+    }
+
+    &__textarea {
+        padding: 1em;
+        border-radius: 10px;
+        resize: none;
+    }
+
+    &__name-input {
+        padding: .4em;
+        border: 1px solid black;
+        border-radius: 10px;
+    }
+
+    &__legend {
+        margin: 0 auto 1em;
+    }
+
+    &__reaction-container {
+        @include flex($gap: .5em);
+        margin-bottom: 1em;
+    }
+
+    &__radio-btn-label {
+        padding: .4em;
+        position: relative;
+
+
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #868686;
+            opacity: 0.3;
+            clip-path: circle(0 at center);
+            transition: 0.3s ease-out;
+        }
+
+        @media (min-width:$device-L) {
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:hover::before {
+                clip-path: circle(30px at center);
+
+            }
+        }
+
+        
+
+        
+
+        &:has(.hiddenBtn:checked):before {
+            background-color: #637088;
+            opacity: .5;
+            clip-path: circle(30px at center)
+        }
+
+        &:has(.hiddenBtn:focus-visible):before {
+            background-color: #2b2d30;
+            opacity: .8;
+        }
+
+
+    }
+}
+
+.form--active {
+    background-color: white;
+    box-shadow: 5px 5px 5px 5px rgba($color: #000000, $alpha: .5);
+}

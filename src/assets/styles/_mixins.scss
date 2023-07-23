@@ -1,0 +1,30 @@
+@mixin flex($gap:0,$justify:center,$align:center,$dir:row,$wrap:nowrap){
+    display: flex;
+    flex-direction: $dir;
+    gap: $gap;
+    flex-wrap: nowrap;
+    justify-content: $justify;
+    align-items: $align;
+}
+@mixin text-width{
+    max-width: 65ch;
+}
+@mixin text-width($size){
+    @if $size == small{
+        max-width: 30ch;
+    }
+    @else{
+        max-width: 65ch;
+    }
+   
+}
+
+@mixin focus($outline:none) {
+    &:focus {
+      outline: $outline;
+    }
+  
+    &:focus-visible {
+      @content;
+    }
+  }

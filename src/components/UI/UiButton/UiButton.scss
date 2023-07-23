@@ -1,0 +1,37 @@
+@use "../../../assets/styles/variables" as *;
+@use "../../../assets/styles/mixins" as *;
+
+.mybutton {
+    font-size: 1.1rem;
+    padding: .6em;
+    width: max-content;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #1F3A93;
+    color: white;
+    transition: color .5s ease, background-color .5s ease;
+    cursor: pointer;
+    box-shadow: 1px 2px 5px 3px #2a1367;
+
+    @media (min-width:$device-L) {
+        &:hover {
+            color: #1F3A93;
+            background-color: white;
+        }
+    }
+
+    @include focus() {
+        outline: 3px solid #f71008;
+    }
+
+    &:active {
+        color: #1F3A93;
+        background-color: white;
+    }
+
+    &:disabled {
+        color: #1F3A93;
+        background-color: rgb(164 174 191);
+    }
+
+}

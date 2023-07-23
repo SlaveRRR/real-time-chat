@@ -1,0 +1,73 @@
+@use "../../assets/styles/mixins" as *;
+@use "../../assets/styles/variables" as *;
+
+.item {
+    width: 100%;
+    @include flex($dir: column, $gap: .5em);
+    &__container {
+        display: grid;
+        grid-template-areas:
+            "author . ."
+            "message message message"
+            "reply-btn replies date"
+        ;
+
+        row-gap: 1.5em;
+        column-gap: 1.3em;
+        border: 1px solid black;
+        border-radius: 2em;
+        width: 100%;
+        padding: 1em .8em;
+        box-shadow: 8px -2px 8px 2px rgba($color: black, $alpha: .8);
+        &--negative {
+            background-color: rgba($color: $color-negative, $alpha: .8);
+        }
+
+        &--positive {
+            background-color:$color-positive;
+        }
+    }
+
+    &__author {
+        grid-area: author;
+        max-width: 8em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1.2rem;
+        background-color: #000000;
+        color: white;
+        padding: .4em;
+        text-align: center;
+        border-radius: 11px;
+    }
+
+    &__text {
+        grid-area: message;
+        font-size: 1.1rem;
+        justify-self: center;
+        @include text-width($size: small);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 140%;
+
+    }
+
+    &__reply-btn {
+        grid-area: reply-btn;
+    }
+
+    &__replies-count {
+        grid-area: replies;
+        justify-self: end;
+        align-self: end;
+    }
+
+    &__date {
+        grid-area: date;
+        width: max-content;
+        justify-self: end;
+        align-self: end;
+        font-size: .9rem;
+    }
+
+}

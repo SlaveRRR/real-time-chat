@@ -1,35 +1,100 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import ctx from './context';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { UiButton,UiSnackBar } from './components/UI';
 
+
+import FormComment from './components/FormComment/FormComment';
+import CommentsList from './components/CommentsList/CommentsList';
+import Modal from './components/Modal/Modal';
+
+import './App.scss';
+import { Transition } from 'react-transition-group';
+
+
+const App = () =>{
+  
+  const [isOpenedForm,setOpenedForm] = useState(false)
+
+  const [isOpenedModal,setOpenedModal] = useState(false)
+
+  const [isOpenedSnackBar,setOpenedSnackBar] = useState(false)
+
+  const [isErrSnackBar,setErrSnackBar] = useState(false)
+
+  const [messageSnackBar,setMessageSnackBar] = useState('')
+
+  const [parentId,setParentId] = useState(null)
+
+  const texts = ['Скрыть форму', 'Создать новый комментарий']
+
+  
+  
+  const showForm = () => {
+    setOpenedForm(!isOpenedForm)
+  } 
+  console.log(isOpenedForm)
+  const closeSnackBar = () => {
+    setOpenedSnackBar(false)
+  }
+
+  const showSnackBar = (message, err) => {
+
+    setMessageSnackBar(message)
+    setOpenedSnackBar(true)
+    setErrSnackBar(err)
+    setTimeout(() =>{
+      closeSnackBar()
+    },2000)
+
+  }
+  const  showModal = id => {
+    console.log('show modal')
+    setParentId(id)
+    setOpenedModal(!isOpenedModal)
+  }
+ 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+   <ctx.Provider value={{showSnackBar,parentId,showModal}}>
+      <header className="header">
+    <p>
+      Итоговая работа Архипов Вячеслав
+    </p>
+  </header>
+  <main className="main" id="main">
+    <h1 className="visuallyhidden">Онлайн чат на React</h1>
+
+    <section className="form-section">
+      <div  className="container">
+        <UiButton handleClick={showForm}>{ isOpenedForm ? texts[0] : texts[1] }</UiButton>
+        <FormComment  visible={isOpenedForm}>Создать новый комментарий</FormComment>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+    </section>
+
+    <section className="comments-section">
+      <div className="container">
+        <CommentsList/>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </section>
+
+    <section className="interactive-section">
+      <div className="container">
+        <Modal  id={parentId} showModal={showModal} visible={isOpenedModal} />
+
+        <Transition
+        in={isOpenedSnackBar}
+        timeout={500}
+       
+        >
+            {state => <UiSnackBar mixClass={[state]}  err={isErrSnackBar} message={messageSnackBar} />}
+        </Transition>
+       
+      </div>
+    </section>
+  </main>
+  </ctx.Provider>
   )
+  
 }
 
 export default App
