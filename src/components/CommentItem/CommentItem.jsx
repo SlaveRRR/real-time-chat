@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React,{ useContext, useMemo } from "react";
 
 import ctx from "../../context";
 
@@ -19,6 +19,7 @@ const getDate = (date) => {
     }).format(new Date(date))
 }
 const countChildren = (tree, count) =>{
+    // console.log('work children count')
     let c = count;
     tree.children.forEach(element => {
         if (!element.children) {
@@ -29,7 +30,9 @@ const countChildren = (tree, count) =>{
     });
     return c
 }
+
 const sumReaction = elem => {
+    console.log('work sum')
     const sum = elem.children.map(e => e.reaction).reduce((prev, curr) => prev + curr)
     return sum
 }
@@ -37,12 +40,21 @@ const sumReaction = elem => {
 const CommentItem = ({ comment }) => {
 
     const {showModal} = useContext(ctx)
+   
+    const sum = useMemo(() =>{
+        if(comment.children){
+            return sumReaction(comment)
+        }
+    },[comment])
+
+
     
+
     return (
         <li className="comments__item item">
             <div className={classNames('item__container', {
-                'item__container--negative': comment.children && sumReaction(comment) < 0,
-                'item__container--positive': comment.children && sumReaction(comment) > 0,
+                'item__container--negative': comment.children && sum < 0,
+                'item__container--positive': comment.children && sum > 0,
             })}>
                 <p className="item__author">{comment.author}</p>
                 <p className="item__text">{comment.text}</p>
@@ -70,6 +82,6 @@ const CommentItem = ({ comment }) => {
 }
 
 
-export default CommentItem;
+export default React.memo(CommentItem);
 
     

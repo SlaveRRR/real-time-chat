@@ -21,15 +21,9 @@ const FormComment = ({ visible, handleClick, mixClass=[] }) => {
 
     const [data,setData] = useState(defaultData)
 
-    const [comment, setComment] = useState('')
-
-    const [reaction, setReaction] = useState(0)
-
-    const [username, setUsername] = useState('')
-
     const {showSnackBar,parentId,showModal} = useContext(ctx)
     
-
+    
     useEffect(() =>{
         usernameRef.current?.focus()
     },[visible])
@@ -89,7 +83,10 @@ const FormComment = ({ visible, handleClick, mixClass=[] }) => {
                             <path
                                 d="M242-840h444v512L408-40l-39-31q-6-5-9-14t-3-22v-10l45-211H103q-24 0-42-18t-18-42v-81.839Q43-477 41.5-484.5T43-499l126-290q8.878-21.25 29.595-36.125Q219.311-840 242-840Zm384 60H229L103-481v93h373l-53 249 203-214v-427Zm0 427v-427 427Zm60 25v-60h133v-392H686v-60h193v512H686Z" />
                         </svg>
-                        <input type="radio" onChange={e => setData(prev => ({...prev,reaction:e.target.value}) )} className="hiddenBtn" name="reaction" value="-1" id="dislike"/>
+                        <input type="radio" onChange={e => setData(prev =>{
+                            console.log('work reaction')
+                            return {...prev,reaction:e.target.value}
+                        } )} className="hiddenBtn" name="reaction" value="-1" id="dislike"/>
                     </label>
                     <label className="form__radio-btn-label" htmlFor="neutral">
                         <svg className="form__reaction" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960"
@@ -97,7 +94,7 @@ const FormComment = ({ visible, handleClick, mixClass=[] }) => {
                             <path
                                 d="M626-533q22.5 0 38.25-15.75T680-587q0-22.5-15.75-38.25T626-641q-22.5 0-38.25 15.75T572-587q0 22.5 15.75 38.25T626-533Zm-292 0q22.5 0 38.25-15.75T388-587q0-22.5-15.75-38.25T334-641q-22.5 0-38.25 15.75T280-587q0 22.5 15.75 38.25T334-533Zm20 194h253v-49H354v49ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 340q142.375 0 241.188-98.812Q820-337.625 820-480t-98.812-241.188Q622.375-820 480-820t-241.188 98.812Q140-622.375 140-480t98.812 241.188Q337.625-140 480-140Z" />
                         </svg>
-                        <input checked type="radio" onChange={e => setData(prev => ({...prev,reaction:e.target.value}) )} className="hiddenBtn" name="reaction" value="0" id="neutral"/>
+                        <input defaultChecked type="radio" onChange={e => setData(prev => ({...prev,reaction:e.target.value}) )} className="hiddenBtn" name="reaction" value="0" id="neutral"/>
                     </label>
                     <label className="form__radio-btn-label" htmlFor="like">
                         <svg className="form__reaction" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960"

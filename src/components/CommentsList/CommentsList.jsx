@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import ctx from "../../context";
 
@@ -9,6 +9,15 @@ import CommentItem from "../CommentItem/CommentItem";
 
 import './CommentsList.scss'
 
+const randomId = () => {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (let i = 0; i < 4; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
 
 const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
 
@@ -25,7 +34,7 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
 
     const unsubscribe = () => {
         response = null
-        // return this.$emit('showSnackBar', `Онлайн режим отключен!`, false)
+       
     }
 
     const subscribe = () => {
@@ -58,17 +67,18 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
             return el
         }).sort((a, b) => a.createdAt - b.createdAt)
 
+        
 
         for (let i of comms) {
             if (i.parentId) {
                 obj[i.parentId] = obj[i.parentId] || [];
                 obj[i.parentId].push(i)
             }
+            
         }
         comms = comms.map(el => {
             if (el.id in obj) {
                 el['children'] = obj[el.id]
-
             }
             return el
         })
@@ -86,44 +96,33 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
             if (resp.status === 500) {
                 throw new Error('Ошибка сервера!')
             }
-            const values = await resp.json()
+            const values = (await resp.json()).slice(0,20)
 
             setComments(prev => [...prev, ...values])
-            // console.log(this.comments.length,'общее кол-во сообщений')
+        
 
         } catch ({ message }) {
-            return 'error'
-            // return this.$emit('showSnackBar', `${message}`, false)
-
+            return showSnackBar(`Ошибка! ${message}`, true)
         }
 
     }
-    console.log('render')
-    const reply = (id) => {
-        this.$emit('showModal', id)
-    }
+    
+   
 
-    const randomId = () => {
-        let text = "";
-        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-        for (let i = 0; i < 4; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        return text;
-    }
+    
 
 
 
 
 
 
-
+    
 
     const getTree = useMemo(() => {
         return makeTree(comments)
     }, [comments]);
 
+    console.log('render')
 
     useEffect(() => {
         getComments().then(() => {
@@ -131,6 +130,7 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
         })
 
     }, [])
+
     return (
         <>
             <div className="realMessage">
@@ -149,4 +149,4 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
 }
 
 
-export default CommentsList;
+export default  CommentsList;

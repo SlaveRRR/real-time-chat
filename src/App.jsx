@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import ctx from './context';
 
 import { UiButton,UiSnackBar } from './components/UI';
@@ -48,8 +48,8 @@ const App = () =>{
     },2000)
 
   }
+  
   const  showModal = id => {
-    console.log('show modal')
     setParentId(id)
     setOpenedModal(!isOpenedModal)
   }
@@ -58,7 +58,7 @@ const App = () =>{
    <ctx.Provider value={{showSnackBar,parentId,showModal}}>
       <header className="header">
     <p>
-      Итоговая работа Архипов Вячеслав
+      Чат на React
     </p>
   </header>
   <main className="main" id="main">
