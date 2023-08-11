@@ -60,7 +60,7 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
 
 
     const makeTree = (arr) => {
-        console.log('work')
+        
         const obj = {};
         let comms = arr.map(el => {
             el.createdAt = new Date(el.createdAt)
@@ -96,7 +96,7 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
             if (resp.status === 500) {
                 throw new Error('Ошибка сервера!')
             }
-            const values = (await resp.json()).slice(0,20)
+            const values = await resp.json()
 
             setComments(prev => [...prev, ...values])
         
@@ -122,7 +122,6 @@ const CommentsList = ({ setOpenedSnackBar, setMessageSnackBar }) => {
         return makeTree(comments)
     }, [comments]);
 
-    console.log('render')
 
     useEffect(() => {
         getComments().then(() => {

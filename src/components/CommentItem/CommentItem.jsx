@@ -18,8 +18,8 @@ const getDate = (date) => {
         minute: 'numeric'
     }).format(new Date(date))
 }
+// подсчет вложеннных детей
 const countChildren = (tree, count) =>{
-    // console.log('work children count')
     let c = count;
     tree.children.forEach(element => {
         if (!element.children) {
@@ -32,7 +32,6 @@ const countChildren = (tree, count) =>{
 }
 
 const sumReaction = elem => {
-    console.log('work sum')
     const sum = elem.children.map(e => e.reaction).reduce((prev, curr) => prev + curr)
     return sum
 }
@@ -47,7 +46,7 @@ const CommentItem = ({ comment }) => {
         }
     },[comment])
 
-
+    
     
 
     return (
